@@ -14,10 +14,6 @@ if 'logged_in' not in st.session_state or not st.session_state.logged_in:
 
 st.title("Data Science Dashboard")
 st.write(f"User: {st.session_state.username} | Role: {st.session_state.role}")
-
-# You can create a sample dataset CSV or use existing data
-# For now, let's create sample data in the code
-
 st.write("## Dataset Management")
 
 # Create sample data
