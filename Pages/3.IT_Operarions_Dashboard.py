@@ -15,7 +15,7 @@ if 'logged_in' not in st.session_state or not st.session_state.logged_in:
 st.title("IT Operations Dashboard")
 st.write(f"User: {st.session_state.username} | Role: {st.session_state.role}")
 
-# --- Load CSV ---
+# Load CSV 
 @st.cache_data
 def load_data():
     # Project root
@@ -28,7 +28,6 @@ def load_data():
 
     try:
         df = pd.read_csv(csv_path)
-        # YOUR CSV has: ticket_id,priority,description,status,assigned_to,created_at,resolution_time_hours
         return df
     except pd.errors.EmptyDataError:
         st.error("CSV file is empty or corrupted. Check DATA/it_tickets.csv")
@@ -67,7 +66,7 @@ if status_filter:
 if assigned_filter:
     filtered_df = filtered_df[filtered_df['assigned_to'].isin(assigned_filter)]
 
-# Metrics - Using YOUR CSV columns
+# Metrics
 col1, col2, col3 = st.columns(3)
 with col1:
     st.metric("Total Tickets", len(filtered_df))
@@ -97,7 +96,7 @@ with col2:
         fig2 = px.pie(status_counts, values='count', names='status', title="Tickets by Status")
         st.plotly_chart(fig2, use_container_width=True)
 
-# Staff performance analysis (for coursework requirement)
+# Staff performance analysis
 st.subheader("Staff Performance Analysis")
 if 'assigned_to' in filtered_df.columns and 'resolution_time_hours' in filtered_df.columns:
     staff_perf = filtered_df.groupby('assigned_to').agg({
