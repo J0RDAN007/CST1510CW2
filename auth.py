@@ -70,11 +70,5 @@ def initialize_database():
     print("- it / it123 (it_operations)")
     print("- data / password123 (data_science)")
 
-# Update the __main__ block in YOUR auth.py:
 if __name__ == "__main__":
-    # Remove or comment out your current create_default_users() call
-    # create_default_users()  # COMMENT THIS OUT
-    # print("Run 'python db_manager.py' first to create database")  # COMMENT THIS OUT
-    
-    # ADD THIS INSTEAD:
     initialize_database()    
