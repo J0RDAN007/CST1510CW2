@@ -15,7 +15,7 @@ if 'logged_in' not in st.session_state or not st.session_state.logged_in:
 st.title("Cybersecurity Dashboard")
 st.write(f"User: {st.session_state.username} | Role: {st.session_state.role}")
 
-# --- Load CSV ---
+# Load CSV 
 @st.cache_data
 def load_data():
     # Project root
@@ -28,7 +28,6 @@ def load_data():
 
     try:
         df = pd.read_csv(csv_path)
-        # YOUR CSV has: incident_id,timestamp,severity,category,status,description
         return df
     except Exception as e:
         st.error(f"Error reading CSV: {str(e)}")
@@ -39,7 +38,6 @@ df = load_data()
 if df.empty:
     st.warning("No data available. Check DATA/cyber_incidents.csv")
 else:
-    # Show debug info
     st.write(f"**Loaded {len(df)} records**")
     st.write(f"**Columns:** {list(df.columns)}")
     
@@ -59,7 +57,7 @@ else:
     if category_filter:
         filtered_df = filtered_df[filtered_df['category'].isin(category_filter)]
     
-    # Metrics - Using YOUR CSV columns
+    # Metrics
     col1, col2, col3 = st.columns(3)
     with col1:
         st.metric("Total Incidents", len(filtered_df))
@@ -89,7 +87,7 @@ else:
             fig2 = px.pie(severity_counts, values='count', names='severity', title="Incidents by Severity")
             st.plotly_chart(fig2, use_container_width=True)
     
-    # Phishing Analysis (for coursework requirement)
+    # Phishing Analysis 
     st.subheader("Phishing Analysis")
     phishing_df = filtered_df[filtered_df['category'] == 'Phishing']
     if not phishing_df.empty:
